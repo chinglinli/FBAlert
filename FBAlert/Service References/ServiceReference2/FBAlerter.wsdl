@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="HelloFB">
+        <s:complexType />
+      </s:element>
+      <s:element name="HelloFBResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="HelloFBResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FBAlert">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="System" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="MessageCata" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="AlertMessage" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Priority" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FBAlertResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FBAlertResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="string" nillable="true" type="s:string" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="HelloFBSoapIn">
+    <wsdl:part name="parameters" element="tns:HelloFB" />
+  </wsdl:message>
+  <wsdl:message name="HelloFBSoapOut">
+    <wsdl:part name="parameters" element="tns:HelloFBResponse" />
+  </wsdl:message>
+  <wsdl:message name="FBAlertSoapIn">
+    <wsdl:part name="parameters" element="tns:FBAlert" />
+  </wsdl:message>
+  <wsdl:message name="FBAlertSoapOut">
+    <wsdl:part name="parameters" element="tns:FBAlertResponse" />
+  </wsdl:message>
+  <wsdl:message name="HelloFBHttpGetIn" />
+  <wsdl:message name="HelloFBHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="FBAlertHttpGetIn">
+    <wsdl:part name="System" type="s:string" />
+    <wsdl:part name="MessageCata" type="s:string" />
+    <wsdl:part name="AlertMessage" type="s:string" />
+    <wsdl:part name="Priority" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="FBAlertHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="HelloFBHttpPostIn" />
+  <wsdl:message name="HelloFBHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="FBAlertHttpPostIn">
+    <wsdl:part name="System" type="s:string" />
+    <wsdl:part name="MessageCata" type="s:string" />
+    <wsdl:part name="AlertMessage" type="s:string" />
+    <wsdl:part name="Priority" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="FBAlertHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:portType name="FBAlerterSoap">
+    <wsdl:operation name="HelloFB">
+      <wsdl:input message="tns:HelloFBSoapIn" />
+      <wsdl:output message="tns:HelloFBSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FBAlert">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">發送AlertMessage To Facebook</wsdl:documentation>
+      <wsdl:input message="tns:FBAlertSoapIn" />
+      <wsdl:output message="tns:FBAlertSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="FBAlerterHttpGet">
+    <wsdl:operation name="HelloFB">
+      <wsdl:input message="tns:HelloFBHttpGetIn" />
+      <wsdl:output message="tns:HelloFBHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FBAlert">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">發送AlertMessage To Facebook</wsdl:documentation>
+      <wsdl:input message="tns:FBAlertHttpGetIn" />
+      <wsdl:output message="tns:FBAlertHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="FBAlerterHttpPost">
+    <wsdl:operation name="HelloFB">
+      <wsdl:input message="tns:HelloFBHttpPostIn" />
+      <wsdl:output message="tns:HelloFBHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FBAlert">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">發送AlertMessage To Facebook</wsdl:documentation>
+      <wsdl:input message="tns:FBAlertHttpPostIn" />
+      <wsdl:output message="tns:FBAlertHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="FBAlerterSoap" type="tns:FBAlerterSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="HelloFB">
+      <soap:operation soapAction="http://tempuri.org/HelloFB" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FBAlert">
+      <soap:operation soapAction="http://tempuri.org/FBAlert" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="FBAlerterSoap12" type="tns:FBAlerterSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="HelloFB">
+      <soap12:operation soapAction="http://tempuri.org/HelloFB" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FBAlert">
+      <soap12:operation soapAction="http://tempuri.org/FBAlert" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="FBAlerterHttpGet" type="tns:FBAlerterHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="HelloFB">
+      <http:operation location="/HelloFB" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FBAlert">
+      <http:operation location="/FBAlert" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="FBAlerterHttpPost" type="tns:FBAlerterHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="HelloFB">
+      <http:operation location="/HelloFB" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FBAlert">
+      <http:operation location="/FBAlert" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="FBAlerter">
+    <wsdl:port name="FBAlerterSoap" binding="tns:FBAlerterSoap">
+      <soap:address location="http://localhost:62850/FBAlerter.asmx" />
+    </wsdl:port>
+    <wsdl:port name="FBAlerterSoap12" binding="tns:FBAlerterSoap12">
+      <soap12:address location="http://localhost:62850/FBAlerter.asmx" />
+    </wsdl:port>
+    <wsdl:port name="FBAlerterHttpGet" binding="tns:FBAlerterHttpGet">
+      <http:address location="http://localhost:62850/FBAlerter.asmx" />
+    </wsdl:port>
+    <wsdl:port name="FBAlerterHttpPost" binding="tns:FBAlerterHttpPost">
+      <http:address location="http://localhost:62850/FBAlerter.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
